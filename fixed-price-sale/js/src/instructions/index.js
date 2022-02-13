@@ -15,3 +15,6 @@ __exportStar(require("./createMarket"), exports);
 __exportStar(require("./createSecondaryMetadataCreators"), exports);
 __exportStar(require("./createStore"), exports);
 __exportStar(require("./initSellingResource"), exports);
+__exportStar(require("./closeMarket"), exports);
+__exportStar(require("./withdraw"), exports);
+__exportStar(require("./claimResource"), exports);

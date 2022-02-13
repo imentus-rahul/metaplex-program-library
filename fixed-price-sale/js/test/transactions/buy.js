@@ -75,8 +75,6 @@ var createBuyTransaction = function (_a) {
                         newMetadata: newMintMetadata,
                         // newly generated mint edition PDA
                         newEdition: newMintEdition,
-                        // solana system account
-                        clock: web3_js_1.SYSVAR_CLOCK_PUBKEY,
                         // metaplex token metadata program address
                         tokenMetadataProgram: mpl_token_metadata_1.MetadataProgram.PUBKEY,
                     }, { tradeHistoryBump: tradeHistoryBump, vaultOwnerBump: vaultOwnerBump })];

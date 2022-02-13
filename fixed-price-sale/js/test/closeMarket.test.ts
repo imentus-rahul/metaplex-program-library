@@ -19,6 +19,9 @@ killStuckProcess();
 
 test('close-market: success', async (t) => {
   const { payer, connection, transactionHandler } = await createPrerequisites();
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 22 ~ test ~ transactionHandler", transactionHandler["payer"].publicKey.toBase58())
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 22 ~ test ~ connection", connection["_rpcEndpoint"])
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 22 ~ test ~ payer", payer.publicKey.toBase58())
 
   const store = await createStore({
     test: t,
@@ -30,6 +33,7 @@ test('close-market: success', async (t) => {
       description: 'Description',
     },
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 36 ~ test ~ store", store.publicKey.toBase58())
 
   const { sellingResource } = await initSellingResource({
     test: t,
@@ -39,14 +43,19 @@ test('close-market: success', async (t) => {
     store: store.publicKey,
     maxSupply: 100,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 39 ~ test ~ sellingResource", sellingResource.publicKey.toBase58())
+
 
   const { mint: treasuryMint } = await mintNFT({
     transactionHandler,
     payer,
     connection,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 49 ~ test ~ treasuryMint", treasuryMint.publicKey.toBase58())
+
 
   const startDate = Math.round(Date.now() / 1000) + 2;
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 56 ~ test ~ startDate", startDate)
   const params = {
     name: 'Market',
     description: '',
@@ -67,6 +76,7 @@ test('close-market: success', async (t) => {
     treasuryMint: treasuryMint.publicKey,
     params,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 67 ~ test ~ market", market.publicKey.toBase58())
 
   await sleep(3000);
 
@@ -76,24 +86,31 @@ test('close-market: success', async (t) => {
     connection,
     market,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 87 ~ test ~ marketTx - closeMarket: ", marketTx)
 
   const MarketRes = await transactionHandler.sendAndConfirmTransaction(
     marketTx,
     [payer],
     defaultSendOptions,
   );
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 94 ~ test ~ MarketRes", MarketRes.txSignature)
 
   logDebug(`market: ${market.publicKey}`);
   assertConfirmedTransaction(t, MarketRes.txConfirmed);
 
   const marketAccount = await connection.getAccountInfo(market.publicKey);
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 100 ~ test ~ marketAccount", marketAccount)
   const [marketData] = MarketAccountData.deserialize(marketAccount.data);
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 102 ~ test ~ marketData", marketData)
 
   t.assert('Ended' === marketData.state.toString());
 });
 
 test('close-market: should fail when the market has the specific endDate', async (t) => {
   const { payer, connection, transactionHandler } = await createPrerequisites();
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 111 ~ test ~ transactionHandler", transactionHandler["payer"].publicKey.toBase58())
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 111 ~ test ~ connection", connection["_rpcEndpoint"])
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 111 ~ test ~ payer", payer.publicKey.toBase58())
 
   const store = await createStore({
     test: t,
@@ -105,6 +122,7 @@ test('close-market: should fail when the market has the specific endDate', async
       description: 'Description',
     },
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 125 ~ test ~ store", store.publicKey.toBase58())
 
   const { sellingResource } = await initSellingResource({
     test: t,
@@ -114,14 +132,18 @@ test('close-market: should fail when the market has the specific endDate', async
     store: store.publicKey,
     maxSupply: 100,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 128 ~ test ~ sellingResource", sellingResource.publicKey.toBase58())
+
 
   const { mint: treasuryMint } = await mintNFT({
     transactionHandler,
     payer,
     connection,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 138 ~ test ~ treasuryMint", treasuryMint.publicKey.toBase58())
 
   const startDate = Math.round(Date.now() / 1000) + 2;
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 145 ~ test ~ startDate", startDate)
   const params = {
     name: 'Market',
     description: '',
@@ -142,6 +164,7 @@ test('close-market: should fail when the market has the specific endDate', async
     treasuryMint: treasuryMint.publicKey,
     params,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 157 ~ test ~ market", market.publicKey.toBase58())
 
   await sleep(3000);
 
@@ -151,11 +174,14 @@ test('close-market: should fail when the market has the specific endDate', async
     connection,
     market,
   });
+  console.log("🚀 ~ file: closeMarket.test.ts ~ line 176 ~ test ~ marketTx", marketTx)
 
   logDebug(`market: ${market.publicKey}`);
 
+  console.log("Expected Transaction to fail in next line")
   try {
-    await transactionHandler.sendAndConfirmTransaction(marketTx, [payer], defaultSendOptions);
+    const tx = await transactionHandler.sendAndConfirmTransaction(marketTx, [payer], defaultSendOptions);
+    console.log("🚀 ~ file: closeMarket.test.ts ~ line 182 ~ test ~ tx", tx.txSignature)
   } catch (error) {
     logDebug('expected transaction to fail due to limited market duration ');
     assertError(t, error, [/0x1782/i]);

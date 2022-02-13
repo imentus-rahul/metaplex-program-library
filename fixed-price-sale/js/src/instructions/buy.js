@@ -29,7 +29,7 @@ var buyInstructionDiscriminator = [102, 6, 61, 18, 1, 218, 235, 234];
  * @param args to provide as instruction data to the program
  */
 function createBuyInstruction(accounts, args) {
-    var market = accounts.market, sellingResource = accounts.sellingResource, userTokenAccount = accounts.userTokenAccount, userWallet = accounts.userWallet, tradeHistory = accounts.tradeHistory, treasuryHolder = accounts.treasuryHolder, newMetadata = accounts.newMetadata, newEdition = accounts.newEdition, masterEdition = accounts.masterEdition, newMint = accounts.newMint, editionMarker = accounts.editionMarker, vault = accounts.vault, owner = accounts.owner, masterEditionMetadata = accounts.masterEditionMetadata, clock = accounts.clock, tokenMetadataProgram = accounts.tokenMetadataProgram;
+    var market = accounts.market, sellingResource = accounts.sellingResource, userTokenAccount = accounts.userTokenAccount, userWallet = accounts.userWallet, tradeHistory = accounts.tradeHistory, treasuryHolder = accounts.treasuryHolder, newMetadata = accounts.newMetadata, newEdition = accounts.newEdition, masterEdition = accounts.masterEdition, newMint = accounts.newMint, editionMarker = accounts.editionMarker, vault = accounts.vault, owner = accounts.owner, masterEditionMetadata = accounts.masterEditionMetadata, tokenMetadataProgram = accounts.tokenMetadataProgram;
     var data = buyStruct.serialize(__assign({ instructionDiscriminator: buyInstructionDiscriminator }, args))[0];
     var keys = [
         {
@@ -103,7 +103,7 @@ function createBuyInstruction(accounts, args) {
             isSigner: false,
         },
         {
-            pubkey: clock,
+            pubkey: web3.SYSVAR_CLOCK_PUBKEY,
             isWritable: false,
             isSigner: false,
         },

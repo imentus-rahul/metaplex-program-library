@@ -12,8 +12,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./createMetadata"), exports);
 __exportStar(require("./createPrerequisites"), exports);
-__exportStar(require("./createMarket"), exports);
 __exportStar(require("./createStore"), exports);
 __exportStar(require("./mintNft"), exports);
-__exportStar(require("./mintTokenToAccount"), exports);
 __exportStar(require("./initSellingResource"), exports);
+__exportStar(require("./createMarket"), exports);
+__exportStar(require("./mintTokenToAccount"), exports);

@@ -73,6 +73,7 @@ To report a security issue, please follow the guidance on the [SECURITY](.github
 - npm i
 - npm run amman:start (// This command creates localhost validator and also deploys all the programs with same program id )  ==> It creates test-ledger folder
 - To close a local validator: sudo kill -9 $(sudo lsof -t -i:9900) (//npm run amman:stop doesn't work as of now)
+- With latest commit pushed "pkill -f solana-test-validator" ==> npm run amman:start (now works)
 - /home/imentus/Documents/im-client/mpl-fork/metaplex-program-library/tsconfig.build.json ==> "esModuleInterop": false
 - /home/imentus/Documents/im-client/mpl-fork/metaplex-program-library/fixed-price-sale/js/tsconfig.json ==> add in compilerOptions-> "esModuleInterop": false
 - edit node_modules => export = BN ==> export default BN
@@ -80,6 +81,10 @@ To report a security issue, please follow the guidance on the [SECURITY](.github
 - Copy pasted node_modules inside js folder
 - npm i "@metaplex-foundation/mpl-core": "^0.0.2",
 - added "target": "es5" in tsconfig.build.json
-- tsc test/buy.test.ts 
+- copy paste existing node modules, that I had already / tried creating using api:gen and build
+- tsc -target es5 test/buy.test.ts 
+- node test/buy.test.js
+- remove .default at 2+2 places
+- remove .default(1) ==> (1)
 
 

@@ -60,7 +60,7 @@ var createMarket = function (_a) {
         var _b, treasuryOwner, treasuryOwnerBump, _c, treasuryHolder, createTokenTx, createVaultRes, market, instruction, marketTx, marketRes;
         return __generator(this, function (_d) {
             switch (_d.label) {
-                case 0: return [4 /*yield*/, (0, utils_2.findTresuryOwnerAddress)(treasuryMint, sellingResource)];
+                case 0: return [4 /*yield*/, (0, utils_2.findTreasuryOwnerAddress)(treasuryMint, sellingResource)];
                 case 1:
                     _b = _d.sent(), treasuryOwner = _b[0], treasuryOwnerBump = _b[1];
                     (0, utils_1.logDebug)("treasuryOwner: ".concat(treasuryOwner.toBase58()));
@@ -95,7 +95,7 @@ var createMarket = function (_a) {
                     marketRes = _d.sent();
                     (0, utils_1.logDebug)("market: ".concat(market.publicKey));
                     (0, amman_1.assertConfirmedTransaction)(test, marketRes.txConfirmed);
-                    return [2 /*return*/, { market: market, treasuryHolder: treasuryHolder }];
+                    return [2 /*return*/, { market: market, treasuryHolder: treasuryHolder, treasuryOwnerBump: treasuryOwnerBump, treasuryOwner: treasuryOwner }];
             }
         });
     });

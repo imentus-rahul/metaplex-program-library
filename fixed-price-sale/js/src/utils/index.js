@@ -36,26 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateMembershipToken = exports.findSecondaryMetadataCreatorsAddress = exports.findTradeHistoryAddress = exports.findTresuryOwnerAddress = exports.findVaultOwnerAddress = void 0;
+exports.validateMembershipToken = exports.findSecondaryMetadataCreatorsAddress = exports.findPayoutTicketAddress = exports.findTradeHistoryAddress = exports.findTreasuryOwnerAddress = exports.findVaultOwnerAddress = void 0;
 var mpl_token_metadata_1 = require("@metaplex-foundation/mpl-token-metadata");
 var web3_js_1 = require("@solana/web3.js");
 var consts_1 = require("../consts");
 var VAULT_OWNER_PREFIX = 'mt_vault';
-var TREASURY_OWNER_PREFIX = 'holder';
-var TRADE_HISTORY_PREFIX = 'history';
+var HISTORY_PREFIX = 'history';
+var PAYOUT_TICKET_PREFIX = 'payout_ticket';
+var HOLDER_PREFIX = 'holder';
 var SECONDARY_METADATA_CREATORS_PREFIX = 'secondary_creators';
 var findVaultOwnerAddress = function (mint, store) {
     return web3_js_1.PublicKey.findProgramAddress([Buffer.from(VAULT_OWNER_PREFIX), mint.toBuffer(), store.toBuffer()], new web3_js_1.PublicKey(consts_1.PROGRAM_ID));
 };
 exports.findVaultOwnerAddress = findVaultOwnerAddress;
-var findTresuryOwnerAddress = function (treasuryMint, sellingResource) {
-    return web3_js_1.PublicKey.findProgramAddress([Buffer.from(TREASURY_OWNER_PREFIX), treasuryMint.toBuffer(), sellingResource.toBuffer()], new web3_js_1.PublicKey(consts_1.PROGRAM_ID));
+var findTreasuryOwnerAddress = function (treasuryMint, sellingResource) {
+    return web3_js_1.PublicKey.findProgramAddress([Buffer.from(HOLDER_PREFIX), treasuryMint.toBuffer(), sellingResource.toBuffer()], new web3_js_1.PublicKey(consts_1.PROGRAM_ID));
 };
-exports.findTresuryOwnerAddress = findTresuryOwnerAddress;
+exports.findTreasuryOwnerAddress = findTreasuryOwnerAddress;
 var findTradeHistoryAddress = function (wallet, market) {
-    return web3_js_1.PublicKey.findProgramAddress([Buffer.from(TRADE_HISTORY_PREFIX), wallet.toBuffer(), market.toBuffer()], new web3_js_1.PublicKey(consts_1.PROGRAM_ID));
+    return web3_js_1.PublicKey.findProgramAddress([Buffer.from(HISTORY_PREFIX), wallet.toBuffer(), market.toBuffer()], new web3_js_1.PublicKey(consts_1.PROGRAM_ID));
 };
 exports.findTradeHistoryAddress = findTradeHistoryAddress;
+var findPayoutTicketAddress = function (funder, market) {
+    return web3_js_1.PublicKey.findProgramAddress([Buffer.from(PAYOUT_TICKET_PREFIX), funder.toBuffer(), market.toBuffer()], new web3_js_1.PublicKey(consts_1.PROGRAM_ID));
+};
+exports.findPayoutTicketAddress = findPayoutTicketAddress;
 var findSecondaryMetadataCreatorsAddress = function (metadata) {
     return web3_js_1.PublicKey.findProgramAddress([Buffer.from(SECONDARY_METADATA_CREATORS_PREFIX), metadata.toBuffer()], new web3_js_1.PublicKey(consts_1.PROGRAM_ID));
 };
