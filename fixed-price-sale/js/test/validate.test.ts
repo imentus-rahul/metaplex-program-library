@@ -65,6 +65,8 @@ test('validate: successful purchase and validation', async (t) => {
   console.log("🚀 ~ file: validate.test.ts ~ line 65 ~ test ~ userTokenAcc", userTokenAcc.publicKey.toBase58())
 
   const startDate = Math.round(Date.now() / 1000);
+  console.log("🚀 ~ file: validate.test.ts ~ line 68 ~ test ~ startDate", startDate)
+  
   const params = {
     name: 'Market',
     description: '',

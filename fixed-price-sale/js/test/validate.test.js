@@ -94,6 +94,7 @@ var actions_1 = require("./actions");
                 console.log("🚀 ~ file: validate.test.ts ~ line 60 ~ test ~ treasuryMint", treasuryMint.publicKey.toBase58());
                 console.log("🚀 ~ file: validate.test.ts ~ line 65 ~ test ~ userTokenAcc", userTokenAcc.publicKey.toBase58());
                 startDate = Math.round(Date.now() / 1000);
+                console.log("🚀 ~ file: validate.test.ts ~ line 68 ~ test ~ startDate", startDate);
                 params = {
                     name: 'Market',
                     description: '',
@@ -148,7 +149,7 @@ var actions_1 = require("./actions");
             case 11:
                 resourceMintMetadata = _g.sent();
                 console.log("🚀 ~ file: validate.test.ts ~ line 116 ~ test ~ resourceMintMetadata", resourceMintMetadata.toBase58());
-                return [4 /*yield*/, mpl_token_metadata_1.EditionMarker.getPDA(resourceMint.publicKey, new bn_js_1(1))];
+                return [4 /*yield*/, mpl_token_metadata_1.EditionMarker.getPDA(resourceMint.publicKey, new bn_js_1.default(1))];
             case 12:
                 resourceMintEditionMarker = _g.sent();
                 console.log("🚀 ~ file: validate.test.ts ~ line 118 ~ test ~ resourceMintEditionMarker", resourceMintEditionMarker.toBase58());
@@ -301,7 +302,7 @@ var actions_1 = require("./actions");
             case 11:
                 resourceMintMetadata = _g.sent();
                 console.log("🚀 ~ file: validate.test.ts ~ line 257 ~ test2 ~ resourceMintMetadata", resourceMintMetadata.toBase58());
-                return [4 /*yield*/, mpl_token_metadata_1.EditionMarker.getPDA(resourceMint.publicKey, new bn_js_1(1))];
+                return [4 /*yield*/, mpl_token_metadata_1.EditionMarker.getPDA(resourceMint.publicKey, new bn_js_1.default(1))];
             case 12:
                 resourceMintEditionMarker = _g.sent();
                 console.log("🚀 ~ file: validate.test.ts ~ line 260 ~ test2 ~ resourceMintEditionMarker", resourceMintEditionMarker.toBase58());

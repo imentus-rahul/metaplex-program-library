@@ -40,17 +40,23 @@ exports.createPrerequisites = void 0;
 var web3_js_1 = require("@solana/web3.js");
 var amman_1 = require("@metaplex-foundation/amman");
 var utils_1 = require("../utils");
+require("dotenv/config");
 var createPrerequisites = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var payer, connection, transactionHandler;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var payer, connection, transactionHandler, _a, _b, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0:
-                payer = web3_js_1.Keypair.generate();
+                payer = web3_js_1.Keypair.fromSecretKey(new Uint8Array([177, 2, 62, 217, 11, 36, 87, 93, 146, 91, 14, 58, 26, 182, 211, 163, 181, 214, 253, 116, 250, 146, 46, 35, 53, 228, 188, 201, 88, 189, 4, 23, 236, 87, 85, 27, 38, 238, 126, 229, 130, 54, 105, 77, 206, 178, 99, 92, 147, 46, 250, 181, 99, 30, 89, 168, 156, 33, 181, 247, 118, 43, 53, 182]));
+                console.log("connectionURL: ", utils_1.connectionURL);
                 connection = new web3_js_1.Connection(utils_1.connectionURL, 'confirmed');
                 transactionHandler = new amman_1.PayerTransactionHandler(connection, payer);
-                return [4 /*yield*/, (0, amman_1.airdrop)(connection, payer.publicKey, 30)];
+                // await airdrop(connection, payer.publicKey, 30);
+                _b = (_a = console).log;
+                _c = ["Balance: "];
+                return [4 /*yield*/, connection.getBalance(payer.publicKey)];
             case 1:
-                _a.sent();
+                // await airdrop(connection, payer.publicKey, 30);
+                _b.apply(_a, _c.concat([_d.sent()]));
                 return [2 /*return*/, { payer: payer, connection: connection, transactionHandler: transactionHandler }];
         }
     });

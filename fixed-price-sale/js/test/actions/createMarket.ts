@@ -42,6 +42,8 @@ export const createMarket = async ({
     treasuryMint,
     sellingResource,
   );
+  console.log("🚀 ~ file: createMarket.ts ~ line 42 ~ treasuryOwnerBump", treasuryOwnerBump)
+  console.log("🚀 ~ file: createMarket.ts ~ line 42 ~ treasuryOwner", treasuryOwner.toBase58())
 
   logDebug(`treasuryOwner: ${treasuryOwner.toBase58()}`);
 
@@ -51,17 +53,21 @@ export const createMarket = async ({
     mint: treasuryMint,
     owner: treasuryOwner,
   });
+  console.log("🚀 ~ file: createMarket.ts ~ line 56 ~ treasuryHolder", treasuryHolder.publicKey.toBase58())
+  console.log("🚀 ~ file: createMarket.ts ~ line 51 ~ createTokenTx", createTokenTx)
 
   const createVaultRes = await transactionHandler.sendAndConfirmTransaction(
     createTokenTx,
     [treasuryHolder],
     defaultSendOptions,
   );
+  console.log("🚀 ~ file: createMarket.ts ~ line 64 ~ createVaultRes", createVaultRes.txSignature)
 
   logDebug(`treasuryHolder: ${treasuryHolder.publicKey}`);
   assertConfirmedTransaction(test, createVaultRes.txConfirmed);
 
   const market = Keypair.generate();
+  console.log("🚀 ~ file: createMarket.ts ~ line 70 ~ market", market.publicKey.toBase58())
 
   const instruction = createCreateMarketInstruction(
     {
@@ -85,12 +91,15 @@ export const createMarket = async ({
     [instruction],
     [market],
   );
+  console.log("🚀 ~ file: createMarket.ts ~ line 89 ~ marketTx", marketTx)
+  console.log("🚀 ~ file: createMarket.ts ~ line 89 ~ marketTx", marketTx["feePayer"].toBase58())
 
   const marketRes = await transactionHandler.sendAndConfirmTransaction(
     marketTx,
     [market],
     defaultSendOptions,
   );
+  console.log("🚀 ~ file: createMarket.ts ~ line 101 ~ marketRes", marketRes.txSignature)
 
   logDebug(`market: ${market.publicKey}`);
   assertConfirmedTransaction(test, marketRes.txConfirmed);

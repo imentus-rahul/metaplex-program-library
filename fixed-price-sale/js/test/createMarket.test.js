@@ -40,7 +40,7 @@ var tape_1 = require("tape");
 var utils_1 = require("./utils");
 var actions_1 = require("./actions");
 (0, utils_1.killStuckProcess)();
-(0, tape_1)('create-market: success', function (t) { return __awaiter(void 0, void 0, void 0, function () {
+(0, tape_1.default)('create-market: success', function (t) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, payer, connection, transactionHandler, store, sellingResource, treasuryMint, startDate, params, _b, market, treasuryHolder;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -48,7 +48,7 @@ var actions_1 = require("./actions");
             case 1:
                 _a = _c.sent(), payer = _a.payer, connection = _a.connection, transactionHandler = _a.transactionHandler;
                 console.log("🚀 ~ file: createMarket.test.ts ~ line 16 ~ test ~ transactionHandler", transactionHandler);
-                console.log("🚀 ~ file: createMarket.test.ts ~ line 16 ~ test ~ connection", connection);
+                console.log("🚀 ~ file: createMarket.test.ts ~ line 16 ~ test ~ connection", connection["_rpcEndpoint"]);
                 console.log("🚀 ~ file: createMarket.test.ts ~ line 16 ~ test ~ payer", payer.publicKey.toBase58());
                 return [4 /*yield*/, (0, actions_1.createStore)({
                         test: t,

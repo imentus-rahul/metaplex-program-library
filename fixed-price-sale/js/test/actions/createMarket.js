@@ -63,6 +63,8 @@ var createMarket = function (_a) {
                 case 0: return [4 /*yield*/, (0, utils_2.findTreasuryOwnerAddress)(treasuryMint, sellingResource)];
                 case 1:
                     _b = _d.sent(), treasuryOwner = _b[0], treasuryOwnerBump = _b[1];
+                    console.log("🚀 ~ file: createMarket.ts ~ line 42 ~ treasuryOwnerBump", treasuryOwnerBump);
+                    console.log("🚀 ~ file: createMarket.ts ~ line 42 ~ treasuryOwner", treasuryOwner.toBase58());
                     (0, utils_1.logDebug)("treasuryOwner: ".concat(treasuryOwner.toBase58()));
                     return [4 /*yield*/, (0, transactions_1.createTokenAccount)({
                             payer: payer.publicKey,
@@ -72,12 +74,16 @@ var createMarket = function (_a) {
                         })];
                 case 2:
                     _c = _d.sent(), treasuryHolder = _c.tokenAccount, createTokenTx = _c.createTokenTx;
+                    console.log("🚀 ~ file: createMarket.ts ~ line 56 ~ treasuryHolder", treasuryHolder.publicKey.toBase58());
+                    console.log("🚀 ~ file: createMarket.ts ~ line 51 ~ createTokenTx", createTokenTx);
                     return [4 /*yield*/, transactionHandler.sendAndConfirmTransaction(createTokenTx, [treasuryHolder], amman_1.defaultSendOptions)];
                 case 3:
                     createVaultRes = _d.sent();
+                    console.log("🚀 ~ file: createMarket.ts ~ line 64 ~ createVaultRes", createVaultRes.txSignature);
                     (0, utils_1.logDebug)("treasuryHolder: ".concat(treasuryHolder.publicKey));
                     (0, amman_1.assertConfirmedTransaction)(test, createVaultRes.txConfirmed);
                     market = web3_js_1.Keypair.generate();
+                    console.log("🚀 ~ file: createMarket.ts ~ line 70 ~ market", market.publicKey.toBase58());
                     instruction = (0, instructions_1.createCreateMarketInstruction)({
                         market: market.publicKey,
                         store: store,
@@ -90,9 +96,11 @@ var createMarket = function (_a) {
                     return [4 /*yield*/, (0, utils_1.createAndSignTransaction)(connection, payer, [instruction], [market])];
                 case 4:
                     marketTx = _d.sent();
+                    console.log("🚀 ~ file: createMarket.ts ~ line 89 ~ marketTx", marketTx);
                     return [4 /*yield*/, transactionHandler.sendAndConfirmTransaction(marketTx, [market], amman_1.defaultSendOptions)];
                 case 5:
                     marketRes = _d.sent();
+                    console.log("🚀 ~ file: createMarket.ts ~ line 101 ~ marketRes", marketRes.txSignature);
                     (0, utils_1.logDebug)("market: ".concat(market.publicKey));
                     (0, amman_1.assertConfirmedTransaction)(test, marketRes.txConfirmed);
                     return [2 /*return*/, { market: market, treasuryHolder: treasuryHolder, treasuryOwnerBump: treasuryOwnerBump, treasuryOwner: treasuryOwner }];
