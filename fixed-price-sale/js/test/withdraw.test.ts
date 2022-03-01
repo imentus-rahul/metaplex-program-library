@@ -214,5 +214,5 @@ test('withdraw: success', async (t) => {
   const payoutTicketData = await connection.getAccountInfo(payoutTicket);
   console.log("🚀 ~ file: withdraw.test.ts ~ line 215 ~ test ~ payoutTicketData", payoutTicketData)
   console.log("🚀 ~ file: withdraw.test.ts ~ line 215 ~ test ~ payoutTicketData - owner", payoutTicketData.owner.toBase58())
-  t.assert(payoutTicketData.owner);
+  t.ok(payoutTicketData?.owner);
 });

@@ -1,6 +1,5 @@
-import { AccountInfo, Keypair, PublicKey, Connection } from '@solana/web3.js';
-import { AuctionHouseAccount } from '../../src/accounts/AuctionHouse';
-import { AuctionHouseAccountDataArgs } from '../../src/generated/accounts';
+import { AccountInfo, Keypair, PublicKey } from '@solana/web3.js';
+import { AuctionHouse, AuctionHouseArgs } from 'src/generated';
 import test from 'tape';
 import spok from 'spok';
 
@@ -10,8 +9,6 @@ function quickKeypair(): [PublicKey, Uint8Array] {
 }
 
 test('account auction-house: round trip serilization', async (t) => {
-  const [accountPubkey] = quickKeypair();
-  console.log("🚀 ~ file: account.auction-house.ts ~ line 14 ~ test ~ accountPubkey", accountPubkey.toBase58())
   const [creator] = quickKeypair();
   console.log("🚀 ~ file: account.auction-house.ts ~ line 16 ~ test ~ creator", creator.toBase58())
   const [auctionHouseTreasury] = quickKeypair();
@@ -23,7 +20,7 @@ test('account auction-house: round trip serilization', async (t) => {
   const [treasuryMint] = quickKeypair();
   console.log("🚀 ~ file: account.auction-house.ts ~ line 24 ~ test ~ treasuryMint", treasuryMint.toBase58())
 
-  const args: AuctionHouseAccountDataArgs = {
+  const args: AuctionHouseArgs = {
     auctionHouseFeeAccount: creator,
     auctionHouseTreasury,
     treasuryWithdrawalDestination,
@@ -38,8 +35,10 @@ test('account auction-house: round trip serilization', async (t) => {
     requiresSignOff: false,
     canChangeSalePrice: true,
   };
+  
+  const expected = AuctionHouse.fromArgs(args);
+  const [data] = expected.serialize();
 
-  const expected = AuctionHouseAccount.fromAccountArgs(accountPubkey, args);
   console.log("🚀 ~ file: account.auction-house.ts ~ line 43 ~ test ~ expected AuctionHouseAccount", expected.pubkey.toBase58())
   console.log("🚀 ~ file: account.auction-house.ts ~ line 46 ~ test ~ expected data - AuctionHouseAccountData", expected.data.auctionHouseFeeAccount.toBase58())  
   console.log("🚀 ~ file: account.auction-house.ts ~ line 46 ~ test ~ expected auctionHouseTreasury", expected.data.auctionHouseTreasury.toBase58())
@@ -48,8 +47,6 @@ test('account auction-house: round trip serilization', async (t) => {
   console.log("🚀 ~ file: account.auction-house.ts ~ line 43 ~ test ~ expected treasuryMint", expected.data.treasuryMint.toBase58())
   console.log("🚀 ~ file: account.auction-house.ts ~ line 46 ~ test ~ expected authority", expected.data.authority.toBase58())
   console.log("🚀 ~ file: account.auction-house.ts ~ line 46 ~ test ~ expected creator", expected.data.creator.toBase58())
-  
-  const [data] = expected.data.serialize();
 
   const info: AccountInfo<Buffer> = {
     executable: false,
@@ -58,7 +55,7 @@ test('account auction-house: round trip serilization', async (t) => {
     lamports: 100,
   };
 
-  const actual = AuctionHouseAccount.fromAccountInfo(accountPubkey, info);
+  const actual = AuctionHouse.fromAccountInfo(info)[0];
   console.log("🚀 ~ file: account.auction-house.ts ~ line 53 ~ test ~ actual - AuctionHouseAccount: ", actual.pubkey.toBase58())
   console.log("🚀 ~ file: account.auction-house.ts ~ line 53 ~ test ~ actual - auctionHouseFeeAccount", actual.data.auctionHouseFeeAccount.toBase58())
   console.log("🚀 ~ file: account.auction-house.ts ~ line 53 ~ test ~ actual - auctionHouseTreasury", actual.data.auctionHouseTreasury.toBase58())

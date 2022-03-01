@@ -98,7 +98,7 @@ test('create-secondary-metadata-creators: empty creators', async (t) => {
   });
   console.log("🚀 ~ file: createSecondaryMetadataCreators.test.ts ~ line 92 ~ test ~ metadata", metadata.toBase58())
 
-  const creators = [];
+  const creators: CreatorAccountData[] = [];
   console.log("🚀 ~ file: createSecondaryMetadataCreators.test.ts ~ line 102 ~ test ~ creators", creators)
 
   const { createSecondaryMetadataCreatorsTx } = await createSecondaryMetadataCreators({
